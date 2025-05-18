@@ -1,0 +1,7 @@
+.pyvenv
+*.secret
+*.pdf
+*.tar.gz
+*.egg-info
+build/
+dist/
