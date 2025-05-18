@@ -1,14 +1,15 @@
 import os
-import requests as rq
-import bs4
-import PyPDF2 as pypdf
-import  playwright.sync_api as plw
 import warnings as warn
 import re
 import datetime as dt
 import tarfile as tar
 import shutil as sh
 from io import BytesIO
+import requests as rq
+import bs4
+import PyPDF2 as pypdf
+import  playwright.sync_api as plw
+
 
 def main():
     DOMAIN=os.getenv("TECRON_DOMAIN")
