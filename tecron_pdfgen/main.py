@@ -9,22 +9,6 @@ import datetime as dt
 import tarfile as tar
 import shutil as sh
 from io import BytesIO
-# headers = {
-#     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-#     "Accept-Encoding": "gzip, deflate, br, zstd",
-#     "Accept-Language": "en-US,en;q=0.5",
-#     "Cache-Control": "no-cache",
-#     "Connection": "keep-alive",
-#     "DNT": "1",
-#     "Host": DOMAIN,
-#     "Pragma": "no-cache",
-#     "Priority": "u=0, i",
-#     "Sec-Fetch-Dest": "document",
-#     "Sec-Fetch-Mode": "navigate",
-#     "Sec-Fetch-Site": "cross-site",
-#     "Upgrade-Insecure-Requests": "1",
-#     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0"
-# }
 
 def main():
     DOMAIN=os.getenv("TECRON_DOMAIN")
@@ -44,31 +28,6 @@ def main():
     if OUTPUT_TARGZ:
         os.makedirs(TARGZ_DIR, exist_ok=True)
     with rq.Session() as s:
-        # r=s.get(URL,timeout=10,headers=headers)
-        # r.raise_for_status()
-        # headers.update(
-        #     {
-        #         "Referer": URL_ROOT,
-        #         "Sec-Fetch-Dest": "frame",
-        #         "Sec-Fetch-Mode": "navigate",
-        #         "Sec-Fetch-Site": "same-origin",
-        #         "Priority": "u=4"
-        #     }
-        # )
-        # r=s.get(URL_ROOT+"Intestazione.htm",timeout=10,headers=headers)
-        # r.raise_for_status()
-        # r=s.get(URL_ROOT+"SpallaSinistra.htm",timeout=10,headers=headers)
-        # r.raise_for_status()
-        # r=s.get(URL_ROOT+"LaSocietaFrame.htm",timeout=10,headers=headers)
-        # r.raise_for_status()
-        # r=s.get(URL_ROOT+"PieDiPagina.htm",timeout=10,headers=headers)
-        # r.raise_for_status()
-        # headers.update(
-        #     {
-        #         "Referer": URL_ROOT+"Intestazione.htm",
-        #         "Sec-Fetch-User": "?1"
-        #     }
-        # )
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Encoding": "gzip, deflate, br, zstd",
