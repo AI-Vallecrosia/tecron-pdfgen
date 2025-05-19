@@ -23,11 +23,11 @@ def cmd():
     os.environ['TECRON_DOMAIN'] = args.domain
     os.environ['TECRON_PASSWORD_FILE'] = args.password_file
     os.environ['TECRON_DOWNLOAD_DIR'] = args.download_dir
-    output_targz=False
-    if not args.output_targz:
-        output_targz = os.getenv('TECRON_TARGZ') is not None
-    print(output_targz)
-    os.environ['TECRON_TARGZ']=str(output_targz)
+  
+    if args.output_targz:
+        os.environ['TECRON_TARGZ']='1'
+    
+   
     if args.gui:
         gui()
     else:
