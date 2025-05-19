@@ -16,7 +16,7 @@ url=""
 license=('GPL')
 groups=()
 depends=()
-makedepends=('git') # 'bzr', 'git', 'mercurial' or 'subversion'
+makedepends=(git python-build python-installer python-wheel) # 'bzr', 'git', 'mercurial' or 'subversion'
 provides=("${pkgname%-VCS}")
 conflicts=("${pkgname%-VCS}")
 replaces=()
@@ -39,20 +39,11 @@ pkgver() {
 # VERSION='VER_NUM.rREV_NUM.HASH', or a relevant subset in case VER_NUM or HASH
 # are not available, is recommended.
 
-# Bazaar
-	printf "r%s" "$(bzr revno)"
-
 # Git, tags available
 	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
 
 # Git, no tags available
 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-
-# Mercurial
-	printf "r%s.%s" "$(hg identify -n)" "$(hg identify -i)"
-
-# Subversion
-	printf "r%s" "$(svnversion | tr -d 'A-z')"
 }
 
 prepare() {
@@ -62,17 +53,10 @@ prepare() {
 
 build() {
 	cd "$srcdir/${pkgname%-VCS}"
-	./autogen.sh
-	./configure --prefix=/usr
-	make
-}
-
-check() {
-	cd "$srcdir/${pkgname%-VCS}"
-	make -k check
+	python -m build --wheel --no-isolation
 }
 
 package() {
 	cd "$srcdir/${pkgname%-VCS}"
-	make DESTDIR="$pkgdir/" install
+	python -m installer --destdir="$pkgdir" dist/*.whl
 }
