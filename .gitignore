@@ -2,9 +2,10 @@
 *.secret
 *.pdf
 *.tar.gz
+*.tar.zst
 *.egg-info
 build/
 dist/
 **/**/__pycahce__/
-
+tecron-pdfgen/
 src/
