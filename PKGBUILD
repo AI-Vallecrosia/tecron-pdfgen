@@ -7,23 +7,22 @@
 # Other VCS sources are not natively supported by makepkg yet.
 
 # Maintainer: Your Name <youremail@domain.com>
-pkgname=tecron_pdfgen-git # '-bzr', '-git', '-hg' or '-svn'
-pkgver=1
+pkgname=tecron-pdfgen-git # '-bzr', '-git', '-hg' or '-svn'
+pkgver=v0.0.1.r0.295fb16
 pkgrel=1
 pkgdesc=""
-arch=()
+arch=(x86_64)
 url=""
 license=('GPL')
-groups=()
-depends=()
-makedepends=(git python-build python-installer python-wheel) # 'bzr', 'git', 'mercurial' or 'subversion'
+makedepends=(git python-build python-installer python-wheel python-setuptools) # 'bzr', 'git', 'mercurial' or 'subversion'
 provides=("${pkgname%-VCS}")
 conflicts=("${pkgname%-VCS}")
 replaces=()
 backup=()
 options=()
 install=
-source=('FOLDER::VCS+URL#FRAGMENT')
+url=https://www.aivallecrosia.com
+source=('git+https://github.com/AI-Vallecrosia/tecron-pdfgen.git')
 noextract=()
 sha256sums=('SKIP')
 
@@ -31,7 +30,7 @@ sha256sums=('SKIP')
 # a description of each element in the source array.
 
 pkgver() {
-	cd "$srcdir/${pkgname%-VCS}"
+	cd "$srcdir/tecron-pdfgen"
 
 # The examples below are not absolute and need to be adapted to each repo. The
 # primary goal is to generate version numbers that will increase according to
@@ -41,22 +40,16 @@ pkgver() {
 
 # Git, tags available
 	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
-
-# Git, no tags available
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
-prepare() {
-	cd "$srcdir/${pkgname%-VCS}"
-	patch -p1 -i "$srcdir/${pkgname%-VCS}.patch"
-}
 
 build() {
-	cd "$srcdir/${pkgname%-VCS}"
+	cd "$srcdir/tecron-pdfgen"
 	python -m build --wheel --no-isolation
 }
 
 package() {
-	cd "$srcdir/${pkgname%-VCS}"
+	cd "$srcdir/tecron-pdfgen"
 	python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 "$pkgname.desktop" -t "$pkgdir/usr/share/applications/"
 }
