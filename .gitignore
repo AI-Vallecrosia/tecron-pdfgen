@@ -8,5 +8,4 @@ build/
 dist/
 **/**/__pycahce__/
 tecron-pdfgen/
-src/
 pkg/
